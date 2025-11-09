@@ -23,3 +23,7 @@ tga-*.tar
 /tmp/
 
 *.tga
+
+.claude
+
+.elixir_ls
