@@ -5,16 +5,16 @@ defmodule TGA do
 
   import Bitwise
 
-  # BGR order
-  @blue <<255, 0, 0>>
-  @green <<0, 255, 0>>
-  @red <<0, 0, 255>>
+  # BGRA order
+  @red <<0, 0, 255, 128>>
+  @green <<0, 255, 0, 128>>
+  @blue <<255, 0, 0, 255>>
 
   @doc """
   Writes a TGA file.
   """
   def write(name, w, h) do
-    file = File.open!(Path.relative_to_cwd(name), [:append])
+    file = File.open!(Path.relative_to_cwd(name), [:write])
 
     header = <<
       0,
@@ -33,8 +33,8 @@ defmodule TGA do
       (w >>> 8) &&& 255,
       h &&& 255,
       (h >>> 8) &&& 255,
-      24,
-      0b00100000
+      32,
+      0b00101000
     >>
 
     IO.binwrite(file, header)
